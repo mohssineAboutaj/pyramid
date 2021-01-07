@@ -1,6 +1,5 @@
 // variables & options
-const s = "x";
-const middleStone = s.repeat(40);
+const middleStone = "x".repeat(60);
 const toSlice = 2;
 const start = (middleStone.length - 1) / (toSlice > 2 ? toSlice : 2);
 const zigZagIn = middleStone.length / 10;
@@ -17,14 +16,11 @@ function stoneTrimer(stones) {
   stones = Array.from(stones);
 
   // delete edge
-  delete stones[0];
   delete stones[stones.length - 1];
+  delete stones[0];
 
   // convert to String
-  stones = stones.toString().replace(/,/g, "");
-
-  // result
-  return stones;
+  return stones.toString().replace(/,/g, "");
 }
 
 /**
@@ -36,20 +32,13 @@ function stoneTrimer(stones) {
  * @returns line stones with edge
  */
 function pyramidBuilder(stones, j) {
-  const rightEdge = "\\";
-  const leftEdge = "/";
-
-  if (stones.length > 1) {
-    return " ".repeat(j) + leftEdge + stoneTrimer(stones) + rightEdge;
-  }
+  return " ".repeat(j) + "/" + stoneTrimer(stones) + "\\";
 }
 
 // show output
 for (let i = start; i > 0; i--) {
   if (zigZagIn > 1 && toSlice >= 2) {
-    if (i % zigZagIn > zigZagIn - 1) {
-      continue;
-    } else {
+    if (!(i % zigZagIn > zigZagIn - 1)) {
       console.log(pyramidBuilder(middleStone.slice(i * toSlice), i));
     }
   } else {
